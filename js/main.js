@@ -8,16 +8,18 @@
 
   $.ajax({
     type: "GET",
-    url: "data/child-facilities.csv",
+    url: "data/kyusui-point.csv", //水道局　災害時の給水場所
+    //url: "data/child-facilities.csv",
     dataType: "text",
     success: function(csvStr) {
 
       $(document).ready(function () {
         // Convert CSV to JSON object
         var csvArray = csvToArray(csvStr);
-        var labels = csvArray[0];
+        var labels = csvArray[0];           //CSVデータの１行目をラベルとして利用する
         var contents = csvArray.slice(1, csvArray.length)
-        var csvObjects = [];
+
+        var csvObjects = [];                //
         contents.forEach(function (data) {
           var obj = {};
           for (let i = 0; i < labels.length; i++) {
@@ -98,9 +100,9 @@
   function contentToString(facility) {
     var string = 
       facility.name + "<br>\n" +
-      "Tel：" + facility.tel + "<br>\n" +
-      "定員：" + facility.capacity + "<br>\n" +
-      "受け入れ年齢：" + facility.min_age + "<br>"
+      "給水容量：" + facility.capacity + "<br>\n" +
+      "備考：" + facility.remark + "<br>\n" +
+      "設置場所：" + facility.address + "<br>"
     return string;
   }
 }());
